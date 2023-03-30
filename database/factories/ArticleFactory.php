@@ -19,7 +19,7 @@ class ArticleFactory extends Factory
             'corp_en' => $this->faker->paragraph(10),
             'titre_fr' => $this->faker->words(7, true),
             'corp_fr' => $this->faker->paragraph(10),
-            'id_user' => User::where('id', '>', 1)->random()->id,
+            'id_user' => User::select('id')->inRandomOrder()->first(),
         ];
     }
 }
