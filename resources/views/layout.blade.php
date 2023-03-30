@@ -26,13 +26,18 @@
                     <a @class(['nav-link', 'active' => Route::currentRouteName() == 'home']) href="{{ route('home') }}" >{{ __('Accueil') }}</a>
                 </li>
 
+                @auth
+                @if ( Auth::user()->id === 1)
+
                 <li class="nav-item">
                     <a @class(['nav-link', 'active' => Route::currentRouteName() == 'students']) href="{{ route('students') }}" >{{ __('Etudiants') }}</a>
                 </li>
-
+                
                 <li class="nav-item">
                     <a @class(['nav-link', 'active' => Route::currentRouteName() == 'new']) href="{{ route('new') }}" >{{ __('Nouvel étudiant') }}</a>
                 </li>
+                @endif
+                @endauth
 
                 <li class="nav-item">
                     <a @class(['nav-link', 'active' => Route::currentRouteName() == 'my-articles']) href="{{ route('my-articles') }}" >{{ __('Mes articles') }}</a>

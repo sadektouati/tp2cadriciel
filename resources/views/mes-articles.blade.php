@@ -2,6 +2,7 @@
 @section('title', __('Mes article') )
 
 @section('content')
+
 <ul class="list-group">
     @forelse($articles as $article)
         <li class="list-group-item">
@@ -13,6 +14,9 @@
         <li>{{ __('Aucun article') }} <a href="{{route('my-article') }}">{{ __('Créer article') }}</a></li>
     @endforelse
 </ul>
+
+<div class="mt-5">
+    {{ $articles->links() }}
+</div>
+
 @endsection('content')
-
-

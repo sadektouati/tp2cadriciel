@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Etudiant;
 use App\Models\Ville;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class EtudiantController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +17,9 @@ class EtudiantController extends Controller
      */
     public function index()
     {
-        //
+        if( Auth::id() != 1 ) abort(401);
+        $etudiants = Etudiant::all()->sortByDesc("id");
+        return view('etudiants', ['etudiants' => $etudiants]);
     }
 
     /**
@@ -25,6 +29,7 @@ class EtudiantController extends Controller
      */
     public function create()
     {
+        if( Auth::id() != 1 ) abort(401);
         $villes = Ville::all()->sortByDesc("nom");;
         return view('create', ['villes' => $villes]);
     }
@@ -38,12 +43,13 @@ class EtudiantController extends Controller
     public function store(Request $request)
     {
         
+        if( Auth::id() != 1 ) abort(401);
         $request->validate([
             'name' => 'required|string|min:10|max:100',
             'date_of_birth' => 'required|date_format:d-m-Y',
             'address' => 'required|string',
             'phone' => 'required|regex:/(01)[0-9]{9}/',
-            'email' => 'required|email|unique:etudiants',
+            'email' => 'required|email|unique:etudiants|unique:users',
             'town_id' => 'required|exists:villes,id',
         ]);
 
@@ -67,6 +73,7 @@ class EtudiantController extends Controller
      */
     public function show(Etudiant $etudiant)
     {
+        if( Auth::id() != 1 ) abort(401);
         $cetEtudiant = Etudiant::join('villes', 'villes.id', '=', 'ville_id')->select('etudiants.*', 'villes.nom as nom_ville')->find($etudiant->id);
         return view('etudiant', ['etudiant' => $cetEtudiant]);
     }
@@ -79,7 +86,7 @@ class EtudiantController extends Controller
      */
     public function edit(Etudiant $etudiant)
     {
-
+        if( Auth::id() != 1 ) abort(401);
         $villes = Ville::all()->sortByDesc("nom");
         return view('edit', ['villes' => $villes, 'etudiant' => $etudiant]);
     }
@@ -93,16 +100,26 @@ class EtudiantController extends Controller
      */
     public function update(Request $request, Etudiant $etudiant)
     {
+        if( Auth::id() != 1 ) abort(401);
+
+        $request->validate([
+            'name' => 'required|string|min:10|max:100',
+            'date_of_birth' => 'required|date_format:d-m-Y',
+            'address' => 'required|string',
+            'phone' => 'required|regex:/(01)[0-9]{9}/',
+            'town_id' => 'required|exists:villes,id',
+        ]);
+
         $etudiant->update([
             'nom' => $request->name,
             'date_de_naissance' => $request->date_of_birth,
             'adresse' => $request->address,
             'phone' => $request->phone,
-            'email' => $request->email,
             'ville_id' => $request->town_id
         ]);
-           
-        return redirect()->route('home');
+        // 'email' => $request->email,
+                   
+        return redirect()->route('show', $etudiant);
     }
 
     /**
@@ -113,6 +130,7 @@ class EtudiantController extends Controller
      */
     public function destroy(Etudiant $etudiant)
     {
+        if( Auth::id() != 1 ) abort(401);
         $etudiant->delete();
         return redirect()->route('home');
     }

@@ -1,9 +1,11 @@
 @extends('layout')
-@section('title', 'article')
+@section('title', __('article') )
 
 @section('content')
+
 <div class="container">
     <h1 class="mb-4">{{Config::get('app.locale') == 'en' ? $article->titre_en :  $article->titre_fr}}</h1>
+    
     @if(Auth::user()->id == $article->id_user)
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">

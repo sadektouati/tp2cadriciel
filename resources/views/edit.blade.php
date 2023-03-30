@@ -13,7 +13,7 @@
         </div>
         <div class="col-auto">
             <span id="nomHelpInline" class="form-text">
-            {{ __('Comme sur ça piéce d'identité.') }}
+            {{ __('Comme sur ça piéce d\'identité.') }}
             </span>
         </div>
     </div>

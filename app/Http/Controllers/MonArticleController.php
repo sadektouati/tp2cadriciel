@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categorie;
 use App\Models\Article;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +17,7 @@ class MonArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::where('id_user', '=', Auth::id())->orderByDesc("id")->paginate(30, ['id', 'id_user', 'titre_' . App::currentLocale() . ' as titre']);
+        $articles = Article::where('id_user', '=', Auth::id())->orderByDesc("id")->paginate(8, ['id', 'id_user', 'titre_' . App::currentLocale() . ' as titre']);
         return view('mes-articles', ['articles' => $articles]);
     }
 
@@ -31,8 +30,7 @@ class MonArticleController extends Controller
     {
         if($article->id_user && $article->id_user != Auth::id()) abort(401);
 
-        $categories = Categorie::all(['id', 'nom_' . App::currentLocale() . ' as nom'])->sortByDesc("id");
-        return view('create-article', ['article' => $article, 'categories' => $categories]);
+        return view('create-article', ['article' => $article]);
     }
 
     /**
@@ -50,7 +48,6 @@ class MonArticleController extends Controller
             'corp_en' => 'required|string|min:10',
             'titre_fr' => 'required|string|min:10|max:200' . ($article->id ? '' : '|unique:articles'),
             'corp_fr' => 'required|string|min:10',
-            'id_categorie' => 'required|exists:categories,id',
         ]);
 
         Article::updateOrCreate(
@@ -60,7 +57,6 @@ class MonArticleController extends Controller
                 'corp_en' => $request->corp_en,
                 'titre_fr' => $request->titre_fr,
                 'corp_fr' => $request->corp_fr,
-                'id_categorie' => $request->id_categorie,
                 'id_user' => Auth::id()
             ]
         );

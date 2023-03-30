@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categorie;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -17,7 +16,7 @@ class ArticleController extends Controller
     public function index()
     {
 
-        $articles = Article::orderBy("id")->paginate(30, ['id', 'id_user', 'titre_' . App::currentLocale() . ' as titre']);
+        $articles = Article::with('author')->orderBy("id")->paginate(8, ['id', 'id_user', 'titre_' . App::currentLocale() . ' as titre']);
         return view('accueil', ['articles' => $articles]);
     }
     /**

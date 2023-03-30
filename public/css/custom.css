@@ -4,3 +4,14 @@ form{
 .form-control {
     max-width: 20rem;
 }
+
+.special-form{
+    flex-wrap: wrap;
+    gap: 2rem;
+    max-width: initial;
+}
+
+.special-form > div{
+    width: 30rem;
+}
+

@@ -18,7 +18,7 @@ class FileController extends Controller
      */
     public function index()
     {
-        $files = File::orderBy("id")->paginate(20, ['id', 'id_user', 'slug', 'nom_' . App::currentLocale() . ' as nom']);
+        $files = File::with('owner')->orderBy("id")->paginate(8, ['id', 'id_user', 'slug', 'nom_' . App::currentLocale() . ' as nom']);
 
         return view('files', ['files' => $files]);
     }
@@ -44,7 +44,7 @@ class FileController extends Controller
         $request->validate([
             'nom_en' => 'required|string|min:10|max:100|unique:files',
             'nom_fr' => 'required|string|min:10|max:100|unique:files',
-            'fichier' => 'file|mimes:doc,pdf,zip'
+            'fichier' => 'required|file|mimes:doc,pdf,zip'
         ]);
 
             $fichier = $request->file('fichier');

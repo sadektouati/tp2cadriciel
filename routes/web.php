@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\IndexController;
 use App\Http\Controllers\EtudiantController;
 use App\Http\Controllers\LangueController;
 use App\Http\Controllers\ArticleController;
@@ -44,7 +43,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/article/{article?}', [ArticleController::class, 'show'])->name('article');
 
 
-    Route::get('/etudiant', [IndexController::class, 'index'])->name('students');
+    Route::get('/etudiant', [EtudiantController::class, 'index'])->name('students');
 
     Route::get('/nouveau', [EtudiantController::class, 'create'])->name('new');
     Route::post('/nouveau', [EtudiantController::class, 'store'])->name('insert');
@@ -55,3 +54,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/etudiant/{etudiant}/supprimer', [EtudiantController::class, 'destroy'])->name('destroy');
 
 });
+
+Auth::routes();

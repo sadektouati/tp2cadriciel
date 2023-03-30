@@ -20,7 +20,7 @@
         </div>
 
         @error('name')
-            <span class="alert alert-danger">{{ $message }}</span>
+            <span class="alert alert-danger d-inline-block m-2 p-2">{{ $message }}</span>
         @enderror
 
     </div>
@@ -41,7 +41,7 @@
         </div>
 
         @error('email')
-            <span class="alert alert-danger">{{ $message }}</span>
+            <span class="alert alert-danger d-inline-block m-2 p-2">{{ $message }}</span>
         @enderror
 
     </div>
@@ -61,7 +61,7 @@
         </div>
 
         @error('phone')
-            <span class="alert alert-danger">{{ $message }}</span>
+            <span class="alert alert-danger d-inline-block m-2 p-2">{{ $message }}</span>
         @enderror
 
     </div>
@@ -72,7 +72,7 @@
             <label for="inputDob" class="col-form-label">{{ __('Date de naissance') }}</label>
         </div>
         <div class="col-auto">
-            <input type="date" name="date_of_birth" value="{{ old('date_of_birth') }}" id="inputDob" class="form-control @error('titre_fr') is-invalid @enderror" aria-describedby="dobHelpInline">
+            <input type="text" name="date_of_birth" value="{{ old('date_of_birth') }}" id="inputDob" class="form-control @error('titre_fr') is-invalid @enderror" placeholder="jj-mm-aaaa" aria-describedby="dobHelpInline">
         </div>
 
         <div class="col-auto">
@@ -82,7 +82,7 @@
         </div>
 
         @error('date_of_birth')
-            <span class="alert alert-danger">{{ $message }}</span>
+            <span class="alert alert-danger d-inline-block m-2 p-2">{{ $message }}</span>
         @enderror
 
     </div>
@@ -103,7 +103,7 @@
         </div>
 
         @error('address')
-            <span class="alert alert-danger">{{ $message }}</span>
+            <span class="alert alert-danger d-inline-block m-2 p-2">{{ $message }}</span>
         @enderror
 
     </div>
@@ -131,7 +131,7 @@
         </div>
 
         @error('town_id')
-            <span class="alert alert-danger">{{ $message }}</span>
+            <span class="alert alert-danger d-inline-block m-2 p-2">{{ $message }}</span>
         @enderror
 
     </div>

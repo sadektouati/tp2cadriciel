@@ -13,8 +13,7 @@ class CreateVillesTable extends Migration
      */
     public function up()
     {
-        Schema::create('towns', function (Blueprint $table) {
-            $table->engine = 'InnoDB';
+        Schema::create('villes', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
             $table->timestamps();

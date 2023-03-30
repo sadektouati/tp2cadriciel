@@ -2,37 +2,12 @@
 @section('title', 'Créer nouvel étudiant')
 
 @section('content')
-<form class="mt-5 mb-5" action="{{route('my-article', $article) }}" method="post">
+
+<form class="d-flex bg-white justify-content-center p-5 mt-5 mb-5 special-form" action="{{route('my-article', $article) }}" method="post">
     @csrf
-    
-    <div class="g-3 align-items-center mb-4">
-        <div>
-            <label for="exampleInputVille" class="col-form-label">{{ __('Catégorie') }}</label>
-        </div>
-        <div>
-            <select name="id_categorie" class="form-control @error('id_categorie') is-invalid @enderror" id="exampleInputVille" aria-describedby="vhilleHelp">
-                <option value="" disabled selected>{{ __('Choisissez') }}</option>
-                @forelse($categories as $categorie)
-                <option value="{{$categorie->id}}" {{$categorie->id == $article->id_categorie ? 'selected' : ''}}>{{$categorie->nom}}</option>
-                @empty
-                <option value="" disabled selected>{{ __('Aucune catégorie') }}</option>
-                @endforelse
-            </select>
-        </div>
 
-        <div class="mt-1">
-            <span id="addressHelpInline" class="form-text">
-                {{ __('Choisissez une catégorie') }}
-            </span>
-        </div>
-
-        @error('id_categorie')
-            <span class="alert alert-danger">{{$message}}</span>
-        @enderror
-
-    </div>
-
-    <div class="g-3 align-items-center mb-4">
+<div>
+<div class="g-3 align-items-center mb-4">
         <div>
             <label for="inputTitreFr" class="col-form-label">{{ __('Titre d\'article (Fr)') }}</label>
         </div>
@@ -47,7 +22,7 @@
         </div>
 
         @error('titre_fr')
-            <span class="alert alert-danger">{{ $message }}</span>
+            <span class="alert alert-danger d-inline-block m-2 p-2">{{ $message }}</span>
         @enderror
         
     </div>
@@ -57,7 +32,7 @@
             <label for="inputCorpFr" class="col-form-label">{{ __('Corp d\'article') }}</label>
         </div>
         <div>
-            <textarea name="corp_fr" id="inputCorpFr" class="form-control @error('corp_fr') is-invalid @enderror" aria-describedby="CorpFrHelpInline" rows="5">{{ old('corp_fr') ?? $article->corp_fr}}</textarea>
+            <textarea name="corp_fr" id="inputCorpFr" class="form-control @error('corp_fr') is-invalid @enderror" aria-describedby="CorpFrHelpInline" rows="10">{{ old('corp_fr') ?? $article->corp_fr}}</textarea>
         </div>
 
         <div class="mt-1">
@@ -67,13 +42,14 @@
         </div>
 
         @error('corp_fr')
-            <span class="alert alert-danger">{{ $message }}</span>
+            <span class="alert alert-danger d-inline-block m-2 p-2">{{ $message }}</span>
         @enderror
 
     </div>
+</div>
 
-
-    <div class="g-3 align-items-center mb-4">
+<div>
+<div class="g-3 align-items-center mb-4">
         <div>
             <label for="inputTitreEn" class="col-form-label">{{ __('Titre d\'article (En)') }}</label>
         </div>
@@ -88,7 +64,7 @@
         </div>
         
         @error('titre_en')
-            <span class="alert alert-danger">{{ $message }}</span>
+            <span class="alert alert-danger d-inline-block m-2 p-2">{{ $message }}</span>
         @enderror
 
     </div>
@@ -98,7 +74,7 @@
             <label for="inputCorpEn" class="col-form-label">{{ __('Corp d\'article (En)') }}</label>
         </div>
         <div>
-            <textarea name="corp_en" id="inputCorpEn" class="form-control @error('titre_fr') is-invalid @enderror" aria-describedby="CorpEnHelpInline" rows="5">{{ old('corp_en') ?? $article->corp_en }}</textarea>
+            <textarea name="corp_en" id="inputCorpEn" class="form-control @error('titre_fr') is-invalid @enderror" aria-describedby="CorpEnHelpInline" rows="10">{{ old('corp_en') ?? $article->corp_en }}</textarea>
         </div>
 
         <div class="mt-1">
@@ -108,16 +84,19 @@
         </div>
 
         @error('corp_en')
-            <span class="alert alert-danger">{{ $message }}</span>
+            <span class="alert alert-danger d-inline-block m-2 p-2">{{ $message }}</span>
         @enderror
 
     </div>
 
+</div>
 
+<div>
     <button type="submit" class="btn btn-primary">{{ __('Enregistrer') }}</button>
     @if( $article->id )
-        <a href="{{route('delete-article', $article) }}" class="btn btn-secondary">{{ __('Supprimer') }}</button>
+        <a href="{{route('delete-article', $article) }}" class="btn btn-secondary">{{ __('Supprimer') }}</a>
     @endif
+</div>
 
 </form>
 @endsection('content')
