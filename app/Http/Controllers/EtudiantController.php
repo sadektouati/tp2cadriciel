@@ -48,21 +48,21 @@ class EtudiantController extends Controller
             'name' => 'required|string|min:10|max:100',
             'date_of_birth' => 'required|date_format:d-m-Y',
             'address' => 'required|string',
-            'phone' => 'required|regex:/(01)[0-9]{9}/',
+            'phone' => 'required|regex:/(01)[0-9]{9}/|unique:etudiants',
             'email' => 'required|email|unique:etudiants|unique:users',
             'town_id' => 'required|exists:villes,id',
         ]);
 
-        $newPost = Etudiant::create([
+        $etudiant = Etudiant::create([
             'nom' => $request->name,
-            'date_de_naissance' => $request->date_of_birth,
+            'date_de_naissance' => date('Y-m-d', strtotime($request->date_of_birth)),
             'adresse' => $request->address,
             'phone' => $request->phone,
             'email' => $request->email,
             'ville_id' => $request->town_id
         ]);
            
-        return redirect()->route('home');
+        return redirect()->route('show', $etudiant);
     }
 
     /**
@@ -88,6 +88,7 @@ class EtudiantController extends Controller
     {
         if( Auth::id() != 1 ) abort(401);
         $villes = Ville::all()->sortByDesc("nom");
+        $etudiant->date_de_naissance = date('d-m-Y', strtotime($etudiant->date_de_naissance));
         return view('edit', ['villes' => $villes, 'etudiant' => $etudiant]);
     }
 
@@ -107,19 +108,21 @@ class EtudiantController extends Controller
             'date_of_birth' => 'required|date_format:d-m-Y',
             'address' => 'required|string',
             'phone' => 'required|regex:/(01)[0-9]{9}/',
+            'email' => 'required|email',
             'town_id' => 'required|exists:villes,id',
         ]);
 
         $etudiant->update([
             'nom' => $request->name,
-            'date_de_naissance' => $request->date_of_birth,
+            'date_de_naissance' => date('Y-m-d', strtotime($request->date_of_birth)),
             'adresse' => $request->address,
+            'email' => $request->email,
             'phone' => $request->phone,
             'ville_id' => $request->town_id
         ]);
         // 'email' => $request->email,
                    
-        return redirect()->route('show', $etudiant);
+        return redirect()->route('students', $etudiant);
     }
 
     /**

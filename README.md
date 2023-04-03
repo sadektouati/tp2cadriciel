@@ -9,14 +9,12 @@ Lien github [est içi](https://github.com/sadektouati/tp2cadriciel.git)
  npm install  
  npm run dev  
 
-
 php artisan make:controller LangueController  
 php artisan make:middleware Langue  
 php artisan make:controller MonArticleController -r -m Article  
 php artisan make:controller ArticleController -r -m Article  
 
 composer require doctrine/dbal  
-php artisan make:migration changement_email_etudiants_table  
 php artisan make:migration create_articles_table  
 php artisan migrate  
 
