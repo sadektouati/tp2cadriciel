@@ -47,3 +47,6 @@ php artisan make:factory FileFactory –m File
 
 php artisan storage:link  
 
+test user  
+  email: etudiant2@email.com  
+  password: etudiant123
